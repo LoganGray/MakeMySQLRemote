@@ -113,9 +113,19 @@ echo -e "enter password for remote user: '$remoteUserName' : "
 read remotePassword
 echo " "
 printf "${yellow}Attempting to create remote user...\n"
+#TODO: fix this grant error.  may want to keep it though to use for older versions of maria/mysql
+#TODO: test for running version of mysql/mariadb and apply appropriate version below
+#reference:  https://techglimpse.com/error-grant-identified-by-password/
 
+#oldversion for MySQL below v. 5.7.6
 mySQLstmt="USE mysql; CREATE USER '$remoteUserName'@'%' IDENTIFIED BY '$remotePassword'; GRANT ALL PRIVILEGES ON *.* TO '$remoteUserName'@'%' IDENTIFIED BY '$remotePassword' WITH GRANT OPTION; FLUSH PRIVILEGES;"
+#new Version
+mySQLstmt="USE mysql; CREATE USER '$remoteUserName'@'%' IDENTIFIED BY '$remotePassword'; GRANT ALL PRIVILEGES ON *.* TO '$remoteUserName'@'%'; FLUSH PRIVILEGES;"
+
 echo -e "${NC}USE mysql; CREATE USER '$remoteUserName'@'%' IDENTIFIED BY '$remotePassword'; GRANT ALL PRIVILEGES ON *.* TO '$remoteUserName'@'%' IDENTIFIED BY '$remotePassword' WITH GRANT OPTION; FLUSH PRIVILEGES;\n"
+echo mySQLStmt
+echo "are those 2 above exactly the same?"
+
 mysql -u root -p$mysqlRootPassword  -e "${mySQLstmt}"
 if [ $? -eq 0 ]
 then
