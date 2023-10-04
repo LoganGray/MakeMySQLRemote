@@ -41,7 +41,7 @@ Linux_version_test () {
         # echo "OS: "$OS
         # echo "Version: "$VER
 
-        if [ $OS == 'Ubuntu' ] && { [ $VER == '16.04' ] || [ $VER == '17.10' ] || [ $VER == '18.04' ]; }
+        if [ $OS == 'Ubuntu' ] && { [ $VER == '16.04' ] || [ $VER == '17.10' ] || [ $VER == '18.04' ] || [ $VER == '20.04' ] || [ $VER == '22.04' ]; }
         then
             echo "Ubuntu 16.04/17.10/18.04 verified.  Continuing."
         else
